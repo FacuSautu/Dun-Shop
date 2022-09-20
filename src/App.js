@@ -7,7 +7,7 @@ function App() {
   return (
     <div className="App">
       <NavBar></NavBar>
-      <ItemListContainer greeting={"Bienvenido a la primera Pre-Entrega de mi Proyecto Final"}></ItemListContainer>
+      <ItemListContainer greeting={"Bienvenido a Dun-Shop! Donde podras encontrar el objeto indicado para para cualquier aventura"}></ItemListContainer>
     </div>
   );
 }
