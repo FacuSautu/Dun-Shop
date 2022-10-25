@@ -1,7 +1,21 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { getCategories } from "../../util/Firebase";
+
 import CartWidget from "./CartWidget";
 
 const NavBar = () => {
+
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    getCategories('categories').then(categories => {
+      let categoriesCol = categories.docs.map(category => ({ id: category.id, ...category.data()}));
+      
+      setCategories(categoriesCol);
+    });
+  }, []);
+
   return (
     <nav className="navbar navbar-dark navbar-expand-lg bg-dark">
       <div className="container-fluid">
@@ -21,11 +35,7 @@ const NavBar = () => {
                 Productos
               </button>
               <ul className="dropdown-menu">
-                <li><Link className="dropdown-item" to={`/category/miscelaneos`}>Miscelaneos</Link></li>
-                <li><Link className="dropdown-item" to={`/category/armas`}>Armas</Link></li>
-                <li><Link className="dropdown-item" to={`/category/armaduras`}>Armaduras</Link></li>
-                <li><hr className="dropdown-divider"/></li>
-                <li><Link className="dropdown-item" to={`/category/objetos_magicos`}>Objetos magicos</Link></li>
+                {categories.map(category => <Link key={category.index} className="dropdown-item" to={`/category/${category.index}`}>{category.description}</Link>)}
               </ul>
             </div>
           </ul>

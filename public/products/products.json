@@ -3,7 +3,7 @@
     "id": 1,
     "title": "Poción de curación",
     "description": "Poción de curación",
-    "price": "50 PO",
+    "price": {"quantity":50, "unit": "PO"},
     "pictureUrl": "healing_potion.jpg",
     "categories": ["miscelaneos"]
   },
@@ -11,7 +11,7 @@
     "id": 2,
     "title": "Antorcha",
     "description": "Antorcha",
-    "price": "4 PO",
+    "price": {"quantity":4, "unit": "PC"},
     "pictureUrl": "torch.png",
     "categories": ["miscelaneos"]
   },
@@ -19,7 +19,7 @@
     "id": 3,
     "title": "Veneno Basico (Vial)",
     "description": "Veneno Basico (Vial)",
-    "price": "100 PO",
+    "price": {"quantity":100, "unit": "PO"},
     "pictureUrl": "poison_vial.jpg",
     "categories": ["miscelaneos"]
   },
@@ -27,7 +27,7 @@
     "id": 4,
     "title": "Daga",
     "description": "Daga",
-    "price": "2 PO",
+    "price": {"quantity":2, "unit": "PO"},
     "pictureUrl": "dagger.png",
     "categories": ["armas"]
   },
@@ -35,7 +35,7 @@
     "id": 5,
     "title": "Espada Larga",
     "description": "Espada Larga",
-    "price": "15 PO",
+    "price": {"quantity":15, "unit": "PO"},
     "pictureUrl": "long_sword.jpg",
     "categories": ["armas"]
   },
@@ -43,7 +43,7 @@
     "id": 6,
     "title": "Armadura de Cuero",
     "description": "Armadura de Cuero",
-    "price": "10 PO",
+    "price": {"quantity":10, "unit": "PO"},
     "pictureUrl": "lether_armor.jpg",
     "categories": ["armaduras"]
   },
@@ -51,7 +51,7 @@
     "id": 7,
     "title": "Armadura de Placas",
     "description": "Armadura de Placas",
-    "price": "1500 PO",
+    "price": {"quantity":1500, "unit": "PO"},
     "pictureUrl": "plaque_armor.png",
     "categories": ["armaduras"]
   }

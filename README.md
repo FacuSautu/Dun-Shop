@@ -1,70 +1,94 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Dun-shop
 
-## Available Scripts
+Y de entre el montón de edificaciones... encuentran una un tanto particular, su estructura estable y bien cuidada, con una buena iluminación exterior, la cual es opacada únicamente por la que proviene del interior.
 
-In the project directory, you can run:
+En su frente, la adorna una hermosa puerta revestida de roble adornada con unas juntas doradas, y en su cenit algo logra captar su atención... logran identificar un cartel, el cual dice:
 
-### `npm start`
+*"Bienvenidos a Dun-shop"*
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+*"Ahora con tienda virtual!"*
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
+## Descripcion
+Dun-shop es un e-commerce desarrollado para el **Curso de React JS de CoderHouse**. Dicha tienda esta hecha en base a un almacén general común y corriente que uno se puede encontrar dentro del universo de *Dungeons & Dragons*, en el cual se pueden encontrar desde armas a armaduras, pociones, objetos mágicos y mucho mas!
+## Authors
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- [@FacuSautu](https://github.com/FacuSautu)
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Dependencias
+[![Swal](https://sweetalert2.github.io/images/SweetAlert2.png)](https://sweetalert2.github.io)
+___
+*Sweet alert 2* es una librería que lleva las aburridas y poco estéticas alertas de JavaScript a otro nivel. Con esta librería se pueden mostrar alertas con animaciones, formularios (junto a sus validaciones), imágenes, entre otras tantas cosas.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Decidí agregar esta librería al proyecto ya que ofrece un valor de detalle extra a las posibilidades dinámicas que implementa React.
+## Tech Stack
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+**Client:** React, Bootstrap
 
-### `npm run eject`
+**Server:** FireBase
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Notas para corrección
+En este apartado me gustaría dejar anotadas cosas para tener en cuenta a la hora de al corrección.
+#### Error con actualización de estado
+Durante la implementación del contexto del carrito proveído por el CartContextProvider en el componente Cart, me cruce con el problema de que, las funciones `updateItem()` y `removeItem()` del CartContextProvider (las cuales modifican el estado ***cart***) no estaban activando el `useEffect()` existente en dicho componente el cual escucha a cambios del estado.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Lo extraño es que este no es el caso para la otra función que modifica el estado (`addItem()`), la cual realizar la modificación del estado ***cart*** y esto ejecuta el `useEffect()` correctamente.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Para solucionar este problema cree otro estado aparte (***reload***) para actualizar en estas funciones junto al estado ***cart*** para que el `useEffect()` se ejecutase.
 
-## Learn More
+---
+**Estados del componente**
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+    const [cart, setCart] = useState(JSON.parse(localStorage.getItem('savedCart')) || defaultValue);
+    const [reload, setReload] = useState(true);
+---
+**Hook de** `useEffect()`
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+    useEffect(() => {
+        // Actualizacion de totales de carrito.
+        Object.keys(cartTotal).forEach(piece => {
+            let total = cartTotal[piece];
+            cart.forEach(item => {
+            if(item.price.unit == piece){
+                total += item.price.quantity*item.quantity;
+            }
+            });
+            cartTotal[piece] = total;
+        });
 
-### Code Splitting
+        // Guardado en localStorage del carrito.
+        if(cart.length){
+            saveCart();
+        }else{
+            unsaveCart();
+        }
+    }, [cart, reload]);
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+---
+**Función** `updateItem()`
 
-### Analyzing the Bundle Size
+    function updateItem(id, item){
+        let newCart = cart;
+        let itemIndex = cart.indexOf(getItem(id));
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+        newCart[itemIndex] = item;
 
-### Making a Progressive Web App
+        setCart(newCart);
+        setReload(!reload);
+    }
+---
+**Función** `removeItem()`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+    function removeItem(id){
+        let newCart = cart;
+        let itemIndex = cart.indexOf(getItem(id));
+        
+        newCart.splice(itemIndex, 1);
+        
+        setCart(newCart);
+        setReload(!reload);
+    }
+---
