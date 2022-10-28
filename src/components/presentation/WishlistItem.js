@@ -19,9 +19,9 @@ const WishlistItem = ({id, title, price, pictureUrl, stock}) => {
 
   const handleWishlist = () => {
     if(userCtx.user?.wishlist.includes(id)){
-      removeItemOfWishList(userCtx.user.user_id, id);
+      removeItemOfWishList(userCtx.user.user_id, id).then(()=>userCtx.reloadUserLoged());
     }else{
-      addItemToWishList(userCtx.user.user_id, id);
+      addItemToWishList(userCtx.user.user_id, id).then(()=>userCtx.reloadUserLoged());
     }
   }
 

@@ -102,24 +102,22 @@ export function logOut(){
   return signOut(auth());
 }
 
-export function addItemToWishList(user_id, item_id){
-  getUser(user_id).then(user => {
-    let userData = user.docs[0].data();
-    const userDoc = doc(db(), 'users', user.docs[0].id);
+export async function addItemToWishList(user_id, item_id){
+  let user = await getUser(user_id);
+  let userData = user.docs[0].data();
+  const userDoc = doc(db(), 'users', user.docs[0].id);
 
-    updateDoc(userDoc, {wishlist: [...userData.wishlist, item_id]});
-  });
+  return updateDoc(userDoc, {wishlist: [...userData.wishlist, item_id]});
 }
 
-export function removeItemOfWishList(user_id, item_id){
-  getUser(user_id).then(user => {
-    let userData = user.docs[0].data();
-    let itemIndex = userData.wishlist.indexOf(item_id);
-    let newWishList = userData.wishlist;
-    newWishList.splice(itemIndex, 1);
+export async function removeItemOfWishList(user_id, item_id){
+  let user = await getUser(user_id);
+  let userData = user.docs[0].data();
+  let itemIndex = userData.wishlist.indexOf(item_id);
+  let newWishList = userData.wishlist;
+  newWishList.splice(itemIndex, 1);
 
-    const userDoc = doc(db(), 'users', user.docs[0].id);
+  const userDoc = doc(db(), 'users', user.docs[0].id);
 
-    updateDoc(userDoc, {wishlist: (newWishList.length) ? newWishList : []});
-  });
+  return updateDoc(userDoc, {wishlist: (newWishList.length) ? newWishList : []});
 }

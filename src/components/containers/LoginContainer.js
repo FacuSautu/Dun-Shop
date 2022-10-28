@@ -37,7 +37,7 @@ const LoginContainer = () => {
                 timer: 1500,
                 showConfirmButton: false
               }).then(() => {
-                navigate('/');
+                navigate(-1);
               })
             })
             .catch(error => {
