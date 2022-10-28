@@ -1,11 +1,11 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 
-import cartContext from "../../context/cartContext";
+import Contexts from "../../context/Contexts";
 
 const CartWidget = () => {
 
-  const cartCtx = useContext(cartContext);
+  const cartCtx = useContext(Contexts.cartContext);
 
   const itemCount = cartCtx.calcItemsQty();
 

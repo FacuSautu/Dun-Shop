@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import cartContext from "../../context/cartContext";
+import Contexts from "../../context/Contexts";
 
 const CartContextProvider = ({ defaultValue=[], children }) => {
   const [cart, setCart] = useState(JSON.parse(localStorage.getItem('savedCart')) || defaultValue);
@@ -34,8 +34,8 @@ const CartContextProvider = ({ defaultValue=[], children }) => {
     }
   }, [cart, reload]);
 
-  function isInCart(id){
-    return cart.some(item => item.id == id);
+  function isInCart(id, variant){
+    return cart.some(item => (item.id == id && item.variant == variant));
   }
 
   function clearCart(){
@@ -56,7 +56,7 @@ const CartContextProvider = ({ defaultValue=[], children }) => {
 
   function addItem(itemToAdd){
     let newCart;
-    if(isInCart(itemToAdd.id)){
+    if(isInCart(itemToAdd.id, itemToAdd.variant)){
       newCart = cart.map(item => {
         if(item.id == itemToAdd.id){
           item.quantity += itemToAdd.quantity;
@@ -97,9 +97,9 @@ const CartContextProvider = ({ defaultValue=[], children }) => {
   }
 
   return(
-    <cartContext.Provider value={{ cart, cartTotal, isInCart, clearCart, saveCart, unsaveCart, getItem, addItem, updateItem, removeItem, calcItemsQty }}>
+    <Contexts.cartContext.Provider value={{ cart, cartTotal, isInCart, clearCart, saveCart, unsaveCart, getItem, addItem, updateItem, removeItem, calcItemsQty }}>
       {children}
-    </cartContext.Provider>
+    </Contexts.cartContext.Provider>
   );
 }
 

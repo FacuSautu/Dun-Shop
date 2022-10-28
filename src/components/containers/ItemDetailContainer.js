@@ -28,7 +28,10 @@ const ItemDetailContainer = () => {
 
   if(item.length == 0){
     return(
-      <div className="col-10 offset-1 d-flex justify-content-center">
+      <div className="col-10 offset-1 d-flex justify-content-center align-items-center" style={{minHeight: '100vh'}}>
+        <div className="spinner-border text-dark me-2" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
         <h3>Cargando item...</h3>
       </div>
     );
@@ -36,7 +39,7 @@ const ItemDetailContainer = () => {
 
   return(
     <div className="col-10 offset-1">
-      <ItemDetail id={item.id} title={item.title} description={item.description} price={item.price} pictureUrl={item.pictureUrl} stock={item.stock} exist={item.exist} />
+      <ItemDetail id={item.id} title={item.title} description={item.description} price={item.price} pictureUrl={item.pictureUrl} stock={item.stock} variants={item.variants} exist={item.exist} />
     </div>
   );
 }

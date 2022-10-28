@@ -29,7 +29,10 @@ const ItemListContainer = ({rootPath}) => {
 
   if(items === ''){
     return(
-      <div className="col-10 offset-1 d-flex justify-content-center">
+      <div className="col-10 offset-1 d-flex justify-content-center align-items-center" style={{minHeight: '100vh'}}>
+        <div className="spinner-border text-dark me-2" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
         <h3>Cargando items...</h3>
       </div>
     );
