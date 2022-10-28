@@ -18,7 +18,6 @@ const ItemDetail = ({id, title, description, price, pictureUrl, stock, variants,
   const isInWishList = userCtx.user?.wishlist.includes(id);
 
   const handleWishlist = () => {
-    userCtx.updateUserInfo();
     if(userCtx.user?.wishlist.includes(id)){
       removeItemOfWishList(userCtx.user.user_id, id);
     }else{
