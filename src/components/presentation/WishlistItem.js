@@ -38,6 +38,12 @@ const WishlistItem = ({id, title, price, pictureUrl, stock}) => {
   return(
     <div className="col-3 p-2">
       <div className="h-100 card position-relative">
+        {(stock<=0) && (
+          <div className="bg-dark opacity-75 text-white rounded d-flex flex-column justify-content-center align-items-center position-absolute top-0 start-0 bottom-0 end-0">
+            <h1>Sold out</h1>
+            <i className="fa-sharp fa-solid fa-boxes-stacked" style={{fontSize: '4rem'}}></i>
+          </div>
+        )}
         { userCtx.user && (isInWishList ? (
           <i className="fa-solid fa-heart position-absolute top-0 end-0 mt-2 me-2 text-danger" style={{fontSize: '1.5rem'}} onClick={handleWishlist}></i>
           ) : (

@@ -146,7 +146,7 @@ const Cart = () => {
 
   if(!cartCtx.cart.length){
     return(
-      <div className="p-5 col-10 offset-1 d-flex flex-column justify-content-evenly align-items-center bg-dark bg-opacity-50 text-white">
+      <div className="p-5 col-10 offset-1 d-flex flex-column justify-content-evenly align-items-center bg-dark bg-opacity-75 text-white">
       <h1 className="my-4">Su carrito no contiene ningun item por el momento.</h1>
       <div className="col-2 d-flex justify-content-center">
         <button className="btn btn-danger" onClick={() => navigate('/')}>Volver</button>
@@ -156,7 +156,7 @@ const Cart = () => {
   }
 
   return(
-    <div className="p-5 col-10 offset-1 d-flex flex-column justify-content-evenly align-items-center bg-dark bg-opacity-50 text-white">
+    <div className="p-5 col-10 offset-1 d-flex flex-column justify-content-evenly align-items-center bg-dark bg-opacity-75 text-white">
       {cartCtx.cart.map(item => <CartItem key={`${item.id}-${item.variant}`} item={item} onDelete={onDelete} onQtyChange={onQtyChange}/>)}
       <div className="w-100 d-flex justify-content-between">
         <h3>Total:</h3>

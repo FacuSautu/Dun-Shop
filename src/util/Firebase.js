@@ -120,6 +120,6 @@ export function removeItemOfWishList(user_id, item_id){
 
     const userDoc = doc(db(), 'users', user.docs[0].id);
 
-    updateDoc(userDoc, {wishlist: newWishList});
+    updateDoc(userDoc, {wishlist: (newWishList.length) ? newWishList : []});
   });
 }

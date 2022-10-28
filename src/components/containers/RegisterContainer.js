@@ -63,7 +63,6 @@ const RegisterContainer = () => {
                 })
             })
             .catch(error => {
-              console.log(error.code, error.message);
               switch (error.code) {
                 case 'auth/email-already-in-use':
                   valErrors.email = 'El E-Mail ingresado ya tiene una cuenta asociada. Intente con otro.';

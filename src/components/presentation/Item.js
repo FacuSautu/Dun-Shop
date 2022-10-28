@@ -27,7 +27,7 @@ const Item = ({id, title, price, pictureUrl, stock}) => {
         {(stock<=0) && (
           <div className="bg-dark opacity-75 text-white rounded d-flex flex-column justify-content-center align-items-center position-absolute top-0 start-0 bottom-0 end-0">
             <h1>Sold out</h1>
-            <i class="fa-sharp fa-solid fa-boxes-stacked" style={{fontSize: '4rem'}}></i>
+            <i className="fa-sharp fa-solid fa-boxes-stacked" style={{fontSize: '4rem'}}></i>
           </div>
         )}
         { userCtx.user && (isInWishList ? (
